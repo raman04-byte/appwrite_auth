@@ -4,7 +4,7 @@ import 'route.dart';
 
 void main() {
   WidgetsFlutterBinding
-      .ensureInitialized(); // For self signed certificates, only use for development
+      .ensureInitialized();
   runApp(const MyApp());
 }
 
