@@ -64,6 +64,23 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: const Text('Login'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                signInWithGithub()
+                    .then((value) {
+                  if (value) {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Invalid email or password'),
+                      ),
+                    );
+                  }
+                });
+              },
+              child: const Text('Login with Github'),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/signup');

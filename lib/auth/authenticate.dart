@@ -1,5 +1,5 @@
-
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/enums.dart';
 import 'package:flutter/foundation.dart';
 
 Client client = Client()
@@ -41,6 +41,21 @@ loginUser(String email, String password) async {
 checkSession() async {
   try {
     await account.getSession(sessionId: 'current');
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
+}
+
+signInWithGithub() async {
+  try {
+    await account.createOAuth2Session(
+      provider: OAuthProvider.github,
+      scopes: ['repo', 'user'],
+    );
     return true;
   } catch (e) {
     if (kDebugMode) {
