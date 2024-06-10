@@ -11,18 +11,20 @@ Account account = Account(client);
 
 createUser(String email, String password, String name) async {
   try {
+    final uniqueID = ID.unique();
     await account.create(
-      userId: ID.unique(),
+      userId: uniqueID,
       email: email,
       password: password,
       name: name,
     );
+    await loginUser(email, password);
     return true;
   } catch (e) {
     if (kDebugMode) {
       print(e);
     }
-    return true;
+    return false;
   }
 }
 
@@ -68,6 +70,18 @@ signInWithGithub() async {
 logout() async {
   try {
     await account.deleteSession(sessionId: 'current');
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
+}
+
+deleteAccount(String identityId) async {
+  try {
+    await account.updateStatus();
     return true;
   } catch (e) {
     if (kDebugMode) {

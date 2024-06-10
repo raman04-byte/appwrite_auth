@@ -1,4 +1,5 @@
 import 'package:appwriteauth/auth/authenticate.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,6 +10,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String userId = '';
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUserId();
+  }
+
+  getCurrentUserId() async {
+    try {
+      final response = await account.get();
+      print(response.$id);
+      setState(() {
+        userId = response.$id;
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,14 +43,21 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-                "Welcome to the simple authentication application using appwrite"),
+            Text(
+                "Welcome to the simple authentication application using appwrite and the user ID is $userId"),
             ElevatedButton(
               onPressed: () {
                 logout();
                 Navigator.pushReplacementNamed(context, '/login');
               },
               child: const Text('Logout'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await deleteAccount(userId);
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: const Text('Delete'),
             ),
           ],
         ),

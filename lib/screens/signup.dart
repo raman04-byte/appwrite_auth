@@ -60,9 +60,9 @@ class _SignupPageState extends State<SignupPage> {
               obscureText: true,
             ),
             ElevatedButton(
-              onPressed: () {
-                createUser(nameController.text, emailController.text,
-                        passwordController.text)
+              onPressed: () async{
+                await createUser(emailController.text, passwordController.text,
+                        nameController.text)
                     .then((value) {
                   if (value) {
                     Navigator.pushReplacementNamed(context, '/home');
