@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: const InputDecoration(
                 labelText: 'Password',
               ),
-              obscureText: true,
+              obscureText: false,
             ),
             ElevatedButton(
               onPressed: () {
@@ -66,8 +66,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                signInWithGithub()
-                    .then((value) {
+                signInWithGithub().then((value) {
                   if (value) {
                     Navigator.pushReplacementNamed(context, '/home');
                   } else {

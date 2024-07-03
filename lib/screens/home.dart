@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Home'),
       ),
       body: Padding(
-        padding: const EdgeInsetsDirectional.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -53,8 +53,20 @@ class _HomePageState extends State<HomePage> {
               child: const Text('Logout'),
             ),
             ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/changeEmail');
+              },
+              child: const Text('Update Email'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/updatePassword');
+              },
+              child: const Text('Update Password'),
+            ),
+            ElevatedButton(
               onPressed: () async {
-                await deleteAccount(userId);
+                await deleteAccount();
                 Navigator.pushReplacementNamed(context, '/login');
               },
               child: const Text('Delete'),
