@@ -20,7 +20,6 @@ class _HomePageState extends State<HomePage> {
   getCurrentUserId() async {
     try {
       final response = await account.get();
-      print(response.$id);
       setState(() {
         userId = response.$id;
       });
@@ -70,6 +69,12 @@ class _HomePageState extends State<HomePage> {
                 Navigator.pushReplacementNamed(context, '/login');
               },
               child: const Text('Delete'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/insertData');
+              },
+              child: const Text('Insert Data'),
             ),
           ],
         ),

@@ -8,7 +8,7 @@ Client client = Client()
     .setSelfSigned(status: true);
 
 Account account = Account(client);
-
+Databases database = Databases(client);
 Future<bool> createUser(String email, String password, String name) async {
   try {
     final uniqueID = ID.unique();
@@ -107,6 +107,44 @@ Future<bool> updatePassword(String newPassword, String oldPassword) async {
   try {
     await account.updatePassword(
         password: newPassword, oldPassword: oldPassword);
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
+}
+
+Future<bool> insertData(String userAddress, String userNumber) async {
+  try {
+    database.createDocument(
+        databaseId: 'USERID',
+        collectionId: '668f82b60037bb241a34',
+        documentId: ID.unique(),
+        data: {
+          'userAddress': userAddress,
+          'userNumber': userNumber,
+        });
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
+}
+
+Future<bool> updateData(String userAddress, String userNumber) async {
+  try {
+    database.updateDocument(
+        databaseId: 'USERID',
+        collectionId: '668f82b60037bb241a34',
+        documentId: '668f86f2713f4fd08818',
+        data: {
+          'userAddress': userAddress,
+          'userNumber': userNumber,
+        });
     return true;
   } catch (e) {
     if (kDebugMode) {

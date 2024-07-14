@@ -1,5 +1,6 @@
 import 'package:appwriteauth/screens/changemail.dart';
 import 'package:appwriteauth/screens/updatePassword.dart';
+import 'package:appwriteauth/screens/userData.dart';
 import 'package:appwriteauth/sessions/currentSession.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ Map<String, WidgetBuilder> get routesMethod {
     '/login': (context) => const LoginPage(),
     '/signup': (context) => const SignupPage(),
     '/changeEmail': (context) => const ChangeEmail(),
-    '/updatePassword' : (context) => const UpdatePassword(),
+    '/updatePassword': (context) => const UpdatePassword(),
+    '/insertData': (context) => const UserData(),
   };
 }
