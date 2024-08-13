@@ -76,6 +76,12 @@ class _HomePageState extends State<HomePage> {
               },
               child: const Text('Insert Data'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/uploadImage');
+              },
+              child: const Text('Upload Image'),
+            ),
           ],
         ),
       ),

@@ -9,6 +9,7 @@ Client client = Client()
 
 Account account = Account(client);
 Databases database = Databases(client);
+Storage storage = Storage(client);
 Future<bool> createUser(String email, String password, String name) async {
   try {
     final uniqueID = ID.unique();
@@ -154,6 +155,24 @@ Future<bool> updateData(String userAddress, String userNumber) async {
   }
 }
 
+Future<bool> uploadFile(String filePath) async {
+  try {
+    await storage.createFile(
+      bucketId: "IMAGE",
+      fileId: ID.unique(),
+      file: InputFile.fromPath(
+          path: filePath, filename: "Raman.${filePath.split('.').last}"),
+    );
+
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
+}
+
 // TODO: For you guys to implement this function in to screen and than create a PR
 Future<bool> updatePhoneNumber(String phoneNumber, String password) async {
   try {
@@ -170,6 +189,36 @@ Future<bool> updatePhoneNumber(String phoneNumber, String password) async {
 Future<bool> updateName(String newName) async {
   try {
     await account.updateName(name: newName);
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
+}
+
+Future<bool> updateFile() async {
+  try {
+    await storage.updateFile(
+      bucketId: "bucketId",
+      fileId: "fileId",
+    );
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
+}
+
+Future<bool> deleteFile() async {
+  try {
+    await storage.deleteFile(
+      fileId: "fileId",
+      bucketId: "bucketId",
+    );
     return true;
   } catch (e) {
     if (kDebugMode) {
