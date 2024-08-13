@@ -1,5 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/enums.dart';
+import 'package:appwrite/models.dart';
+import 'package:appwriteauth/models/realtime_model.dart';
 import 'package:flutter/foundation.dart';
 
 Client client = Client()
@@ -10,6 +12,36 @@ Client client = Client()
 Account account = Account(client);
 Databases database = Databases(client);
 Storage storage = Storage(client);
+Realtime realtime = Realtime(client);
+
+Stream<RealtimeModel> subscribeToRealtime() {
+  return realtime
+      .subscribe(['databases.USERID.collections.realtime.documents'])
+      .stream
+      .map((event) {
+        final payload = event.payload;
+        print(payload);
+        return RealtimeModel.fromJson(payload);
+      });
+}
+Future<RealtimeModel> initialFunction() async {
+  try {
+    // Replace 'DATABASE_ID' and 'COLLECTION_ID' with your actual database and collection IDs
+    Document document = await database.getDocument(
+      databaseId: 'USERID',
+      collectionId: 'realtime',
+      documentId: '66bafa910003d92abab9', // Replace with the specific document ID you want to fetch
+    );
+
+    return RealtimeModel.fromJson(document.data);
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error fetching initial data: $e');
+    }
+    // Return a default or empty model if there's an error
+    return RealtimeModel(text1: 'Error', text2: 'Error');
+  }
+}
 Future<bool> createUser(String email, String password, String name) async {
   try {
     final uniqueID = ID.unique();

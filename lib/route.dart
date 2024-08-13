@@ -1,4 +1,5 @@
 import 'package:appwriteauth/screens/changemail.dart';
+import 'package:appwriteauth/screens/realtime_screen.dart';
 import 'package:appwriteauth/screens/updatePassword.dart';
 import 'package:appwriteauth/screens/uploadimage.dart';
 import 'package:appwriteauth/screens/userData.dart';
@@ -19,5 +20,6 @@ Map<String, WidgetBuilder> get routesMethod {
     '/updatePassword': (context) => const UpdatePassword(),
     '/insertData': (context) => const UserData(),
     '/uploadImage': (context) => const UploadImage(),
+    '/realtime': (context) => const RealtimeScreen(),
   };
 }
